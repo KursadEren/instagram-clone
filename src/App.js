@@ -1,7 +1,14 @@
 
 import './index.css';
-import { useEffect, useRef } from 'react';
+import Input from './Component/input';
+import { useEffect, useRef, useState } from 'react';
+import {AiFillFacebook} from 'react-icons/ai';
 function App() {
+
+  const [username,setUsername] = useState('')
+  const [password,setPassword] = useState('')
+
+  const enable = username && password
 
   const ref = useRef();
   useEffect(()=> {
@@ -34,9 +41,9 @@ function App() {
   },[ref])
 
   return (
-    <div className="h-full w-full flex items-center justify-center">
+    <div className="h-full w-full flex flex-wrap overflow-auto items-center gap-x-8 justify-center">
     
-        <div className='w-[380px] h-[581px] bg-logo-pattern relative bg-[length:468.32px_634.15px] bg-[top_left_-46px]'>
+        <div className='hidden md:block w-[380px] h-[581px] bg-logo-pattern relative bg-[length:468.32px_634.15px] bg-[top_left_-46px]'>
            <div className='w-[250px] h-[538px] absolute top-[27px] right-[18px] ' ref={ref}>
             <img  className='h-full w-full absolute top-0 left-0 opacity-0 transition-opacityduration-1000 ease-linear'
                   src="https://www.instagram.com/static/images/homepage/screenshots/screenshot1-2x.png/cfd999368de3.png"/>
@@ -51,6 +58,38 @@ function App() {
 							     alt=""/>
             </div> 
         </div>
+
+        <div className='w-[350px] grid gap-y-3'>
+        <div className=' bg-white border p-[40px] pt-10 pb-2'>
+           <a href=''  className='flex justify-center mb-8' >
+             <img className='h-[51px]' src="https://www.instagram.com/static/images/web/logged_out_wordmark-2x.png/d2529dbef8ed.png" alt=""/>
+            </a>
+          <form className='grid gap-y-1.5'>
+             
+                <Input type="text" value={username} label="Phone number, username or email" onChange={e => setUsername(e.target.value)} />
+                <Input type="password" value={password} onChange={e  => setPassword(e.target.value)} label="password" />
+                
+              <button type="submit" disabled={!enable} className='h-[30px] rounded mt-1 bg-blue-500 text-white text-sm font-medium disabled:opacity-50 '  > Log In</button>
+                <div className='flex items-center'>
+                  <div className='h-px bg-gray-300 flex-1 my-2.5 mb-3.5'/>
+                  <span className='px-4 text-[13px] text-gray-500 font-semibold'  >OR</span>
+                  <div className='h-px bg-gray-300 flex-1'/>
+                </div>
+                <a href='#' className='flex mb-2 justify-center items-center gap-x-2 text-sm font-semibold text-facebook '>
+                  <AiFillFacebook size={20}/>
+                  Log in with Facebook
+                </a>
+                <a href='#' className='text-xs flex items-center justify-center text-link'>
+                  Forgot password?
+                </a>
+          </form>
+          </div>
+          <div className='bg-white border p-4 text-sm text-center '>
+            Don't have an account? <a href='#' className='font-semibold text-brand' >Sign Up</a>
+          </div>
+          </div>
+
+       
       
     </div>
   );
